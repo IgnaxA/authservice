@@ -4,7 +4,7 @@
 
 1. Склонировать данный репозиторий:
 
-git clone https://github.com/IgnaxA/bank-manager.git
+git clone https://github.com/IgnaxA/authservice.git
 
 2. Открыть терминал и зайти в корневую папку проекта
 

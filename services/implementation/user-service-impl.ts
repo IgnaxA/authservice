@@ -22,10 +22,8 @@ export class UserServiceImpl implements UserService {
     };
 
     public createUser = async (userEmail: string, userPassword: string, userAccessLevel: number): Promise<UserDTO> => {
-        // Использовать, когда будет написан енкриптор
-        // const encryptedUserPassword: string = await this.cryptor.encryptPassword(userPassword);
-        // const user: User = await this.userRepository.createUser(userEmail, encryptedUserPassword, userAccessLevel);
-        const user: User = await this.userRepository.createUser(userEmail, userPassword, userAccessLevel);
+        const encryptedUserPassword: string = await this.cryptor.encryptPassword(userPassword);
+        const user: User = await this.userRepository.createUser(userEmail, encryptedUserPassword, userAccessLevel);
         return new UserDTO(user.getUserId(), user.getUserEmail());
     };
 };

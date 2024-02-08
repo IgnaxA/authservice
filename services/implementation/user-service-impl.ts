@@ -23,7 +23,4 @@ export class UserServiceImpl implements UserService {
     public getUser = async (userId: number): Promise<UserDTO> => {
         return new UserDTO();
     };
-
-    
-    
 };

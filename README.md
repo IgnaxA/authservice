@@ -10,7 +10,7 @@ git clone https://github.com/IgnaxA/bank-manager.git
 
 3. Собрать docker образ БД:
 
-docker build -f ./docker/images/docker-postgres-scripts.Dockerfile -t ignaxa/bank_manager:postgredb .
+docker build -f ./docker/images/docker-postgres-scripts.Dockerfile -t ignaxa/authservice:postgredb .
 
 4. Запустить контейнеры:
 

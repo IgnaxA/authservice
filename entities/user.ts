@@ -5,13 +5,18 @@ export class User {
     private userPassword: string = "";
     private userAccessLevel: number = -1;
 
-    constructor() {};
+    // constructor() {};
 
-    // constructor(userEmail: string, userPassword: string, userAccessLevel: number ) {
-    //     this.userEmail = userEmail;
-    //     this.userPassword = userPassword;
-    //     this.userAccessLevel = userAccessLevel;
-    // };
+    constructor(userId: number, userEmail: string, userPassword: string, userAccessLevel: number ) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userAccessLevel = userAccessLevel;
+    };
+
+    public getUserId() {
+        return this.userId;
+    };
 
     public getUserEmail() {
         return this.userEmail;
@@ -24,8 +29,4 @@ export class User {
     public getUserAccessLevel() {
         return this.userAccessLevel;
     };
-
-    
-
-    
 };

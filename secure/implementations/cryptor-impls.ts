@@ -1,13 +1,14 @@
 import { Cryptor } from "../cryptor";
+import { hash, compare } from "bcrypt";
 
 
 export class CryptorImpl implements Cryptor {
+    private readonly saltRounds: number = 10;
 
     encryptPassword = async (password: string): Promise<string> => {
-        throw new Error("Method not implemented.");
+        return hash(password, this.saltRounds);
     };
-    decryptPassword = async (password: string): Promise<string> => {
-        throw new Error("Method not implemented.");
+    comparePassword = async (password: string, hashedPassword: string): Promise<boolean> => {
+        return compare(password, hashedPassword);
     };
-
 };

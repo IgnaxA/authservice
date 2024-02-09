@@ -27,7 +27,7 @@ export class UserRepositoryImpl implements UserRepository {
 
     public createUser = async (userEmail: string, userPassword: string, userAccessLevel: number): Promise<User> => {
         return await pool.query(`INSERT INTO users (user_email, user_password, user_access_level) 
-                                 VALUES (${userEmail}, ${userPassword}, ${userAccessLevel}) RETURNING *`)
+                                 VALUES ('${userEmail}', '${userPassword}', ${userAccessLevel}) RETURNING *`)
                           .then(async (queryResult: QueryResult<JSON>) => {
                             return this.handlingQueryResult(queryResult);
                           });

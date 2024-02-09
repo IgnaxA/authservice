@@ -1,18 +1,18 @@
 import { UserDTO } from "../../dto/UserDTO";
-import { UserService } from "../../services/user-service";
-import { UserController } from "../user-controller";
+import { AuthService } from "../../services/auth-service";
+import { AuthController } from "../auth-controller";
 import { Request, Response } from "express";
 
-export class UserControllerImpl implements UserController {
-    private readonly userService: UserService;
+export class AuthControllerImpl implements AuthController {
+    private readonly authService: AuthService;
 
-    constructor(userService: UserService) {
-        this.userService = userService;
+    constructor(authService: AuthService) {
+        this.authService = authService;
     };
 
     public getUser = async (req: Request, res: Response) => {
         const userId = Number(req.params.id);
-        await this.userService.getUser(userId)
+        await this.authService.getUser(userId)
                                  .then((userDTO: UserDTO) => {
                                      res
                                         .status(200)
@@ -22,7 +22,7 @@ export class UserControllerImpl implements UserController {
 
     public createUser = async (req: Request, res: Response) => {
         const { userEmail, userPassword, userAccessLevel } = req.body;
-        await this.userService.createUser(userEmail, userPassword, userAccessLevel)
+        await this.authService.createUser(userEmail, userPassword, userAccessLevel)
                               .then((userDTO: UserDTO) => {
                                 res
                                    .status(200)

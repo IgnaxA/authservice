@@ -1,27 +1,29 @@
 import express from "express";
-import { UserRouter } from "./routes/user-routes";
-import { UserControllerImpl } from "./controllers/implementations/user-controller-impl";
+import { AuthRouter } from "./routes/auth-routes";
+import { AuthControllerImpl } from "./controllers/implementations/auth-controller-impl";
 import { UserRepository } from "./repositories/user-repository";
 import { UserRepositoryImpl } from "./repositories/implementations/user-repository-impl";
-import { UserController } from "./controllers/user-controller";
-import { UserService } from "./services/user-service";
-import { UserServiceImpl } from "./services/implementation/user-service-impl";
+import { AuthController } from "./controllers/auth-controller";
+import { AuthService } from "./services/auth-service";
+import { AuthServiceImpl } from "./services/implementations/auth-service-impl";
 import { Cryptor } from "./secure/cryptor";
 import { CryptorImpl } from "./secure/implementations/cryptor-impls";
+import bodyParser from "body-parser";
 
 const PORT = 8080;
 
 const app = express();
+app.use(bodyParser.json());
 
 const userRepository: UserRepository = new UserRepositoryImpl();
 const cryptor: Cryptor = new CryptorImpl();
-const userService: UserService = new UserServiceImpl(userRepository, cryptor);
-const userController: UserController = new UserControllerImpl(userService);
-const userRouter: UserRouter = new UserRouter(userController);
+const authService: AuthService = new AuthServiceImpl(userRepository, cryptor);
+const authController: AuthController = new AuthControllerImpl(authService);
+const authRouter: AuthRouter = new AuthRouter(authController);
 
-userRouter.setRouter();
+authRouter.setRouter();
 
-app.use(userRouter.getRouter());
+app.use(authRouter.getRouter());
 
 app.listen(PORT, (err: Error | void): void => {
     err ? console.log(err) : console.log(`Listening to port ${PORT}`);

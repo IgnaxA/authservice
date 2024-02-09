@@ -1,7 +1,7 @@
 import { UserDTO } from "../../dto/UserDTO";
 import { User } from "../../entities/user";
 import { UserRepository } from "../../repositories/user-repository";
-import { Cryptor } from "../../secure/cryptor";
+import { Cryptor } from "../../secure/cryptor/cryptor";
 import { AuthService } from "../auth-service";
 
 

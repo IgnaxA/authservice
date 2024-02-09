@@ -6,8 +6,8 @@ import { UserRepositoryImpl } from "./repositories/implementations/user-reposito
 import { AuthController } from "./controllers/auth-controller";
 import { AuthService } from "./services/auth-service";
 import { AuthServiceImpl } from "./services/implementations/auth-service-impl";
-import { Cryptor } from "./secure/cryptor";
-import { CryptorImpl } from "./secure/implementations/cryptor-impls";
+import { Cryptor } from "./secure/cryptor/cryptor";
+import { CryptorImpl } from "./secure/cryptor/implementations/cryptor-impls";
 import bodyParser from "body-parser";
 
 const PORT = 8080;

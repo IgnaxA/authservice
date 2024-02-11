@@ -1,6 +1,7 @@
 import { User } from "../entities/user";
 
 export interface UserRepository {
-    createUser(userEmail: string, userPassword: string, userAccessLevel: number): Promise<User>;
-    getUser(userId: number): Promise<User>;
+    createUser(user: User): Promise<User>;
+    getUser(userEmail: string): Promise<User>;
+    setUserRefreshToken(user: User, userRefreshToken: string): Promise<User>;
 };

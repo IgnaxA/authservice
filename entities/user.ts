@@ -4,15 +4,28 @@ export class User {
     private userEmail: string = "";
     private userPassword: string = "";
     private userAccessLevel: number = -1;
+    private userRefreshToken: string = "";
 
-    // constructor() {};
-
-    constructor(userId: number, userEmail: string, userPassword: string, userAccessLevel: number ) {
-        this.userId = userId;
+    public setNotAddedUser(userEmail: string, userPassword: string, userAccessLevel: number) {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.userAccessLevel = userAccessLevel;
     };
+
+    public setAddedUser(userId: number, userEmail: string, userPassword: string, userAccessLevel: number) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userAccessLevel = userAccessLevel;
+    }
+
+    public setFullUser(userId: number, userEmail: string, userPassword: string, userAccessLevel: number, userRefreshToken:string) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userAccessLevel = userAccessLevel;
+        this.userRefreshToken = userRefreshToken;
+    }
 
     public getUserId() {
         return this.userId;
@@ -28,5 +41,9 @@ export class User {
 
     public getUserAccessLevel() {
         return this.userAccessLevel;
+    };
+
+    public getUserRefreshToken() {
+        return this.userRefreshToken;
     };
 };

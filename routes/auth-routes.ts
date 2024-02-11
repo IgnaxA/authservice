@@ -10,8 +10,8 @@ export class AuthRouter {
     };
 
     public setRouter(): void {
-        this.authRouter.get('/users/:id', this.authController.getUser);
-        this.authRouter.post('/users', this.authController.createUser);
+        this.authRouter.post('/api/signin',this.authController.signIn);
+        this.authRouter.post('/api/signup', this.authController.signUp);
     };
 
     public getRouter(): Router {

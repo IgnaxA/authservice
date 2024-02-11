@@ -29,10 +29,10 @@ export class AuthServiceImpl implements AuthService {
             throw new Error("User with that email or password does not exists!");
         };
 
-        const userRefreshTokenCheck: { succes: boolean, data: TokenDecoded | Error } = await this.authJWT.verifyToken(user.getUserRefreshToken());
+        const userRefreshTokenCheck: { success: boolean, data: TokenDecoded | Error } = await this.authJWT.verifyToken(user.getUserRefreshToken());
 
         let fullUser: User = user;
-        if (!userRefreshTokenCheck) {
+        if (!userRefreshTokenCheck.success) {
             const userRefreshToken: string = await this.authJWT.createRefreshToken(user.getUserId());
             fullUser = await this.userRepository.setUserRefreshToken(user, userRefreshToken);
         };

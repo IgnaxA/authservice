@@ -1,29 +1,63 @@
-import { UserDTO } from "../../dto/UserDTO";
+import { UserDTOOutput } from "../../dto/UserDTOOutput";
+import { UserDTOInput } from "../../dto/UserDTOInput";
 import { User } from "../../entities/user";
 import { UserRepository } from "../../repositories/user-repository";
 import { Cryptor } from "../../secure/cryptor/cryptor";
+import { AuthJWT } from "../../secure/json-web-token/auth-jwt";
 import { AuthService } from "../auth-service";
-
+import { TokenDecoded } from "../../secure/json-web-token/token-decoded";
 
 
 
 export class AuthServiceImpl implements AuthService {
     private readonly userRepository: UserRepository;
     private readonly cryptor: Cryptor;
+    private readonly authJWT: AuthJWT;
 
-    constructor(userRepository: UserRepository, cryptor: Cryptor) {
+    constructor(userRepository: UserRepository, cryptor: Cryptor, authJWT: AuthJWT) {
         this.userRepository = userRepository;
         this.cryptor = cryptor;
+        this.authJWT = authJWT;
     };
 
-    public getUser = async (userId: number): Promise<UserDTO> => {
-        const user: User = await this.userRepository.getUser(userId);
-        return new UserDTO(user.getUserId(), user.getUserEmail());
+    public signIn = async (userDTOInput: UserDTOInput): Promise<UserDTOOutput> => { 
+        const user: User = await this.userRepository.getUser(userDTOInput.getUserEmail());
+
+        const userPasswordCheck: boolean = await this.cryptor.comparePasswords(userDTOInput.getUserPassword(), user.getUserPassword());
+
+        if (!userPasswordCheck) {
+            throw new Error("User with that email or password does not exists!");
+        };
+
+        const userRefreshTokenCheck: { succes: boolean, data: TokenDecoded | Error } = await this.authJWT.verifyToken(user.getUserRefreshToken());
+
+        let fullUser: User = user;
+        if (!userRefreshTokenCheck) {
+            const userRefreshToken: string = await this.authJWT.createRefreshToken(user.getUserId());
+            fullUser = await this.userRepository.setUserRefreshToken(user, userRefreshToken);
+        };
+
+        const userAccessToken: string = await this.authJWT.createAccessToken(fullUser.getUserId());
+
+        const userDTOOutput: UserDTOOutput = new UserDTOOutput();
+        userDTOOutput.setUserSignInOutput(fullUser.getUserId(), fullUser.getUserEmail(), userAccessToken);
+        return userDTOOutput;
     };
 
-    public createUser = async (userEmail: string, userPassword: string, userAccessLevel: number): Promise<UserDTO> => {
-        const encryptedUserPassword: string = await this.cryptor.encryptPassword(userPassword);
-        const user: User = await this.userRepository.createUser(userEmail, encryptedUserPassword, userAccessLevel);
-        return new UserDTO(user.getUserId(), user.getUserEmail());
+    public signUp = async (userDTOInput: UserDTOInput): Promise<UserDTOOutput> => {
+        const user: User = new User();
+
+        const encryptedUserPassword: string = await this.cryptor.encryptPassword(userDTOInput.getUserPassword());
+
+        user.setNotAddedUser(userDTOInput.getUserEmail(), encryptedUserPassword, userDTOInput.getUserAccessLevel());
+        const createdUser: User = await this.userRepository.createUser(user);
+
+        const userRefreshToken: string = await this.authJWT.createRefreshToken(createdUser.getUserId());
+        const userAccessToken: string = await this.authJWT.createAccessToken(createdUser.getUserId());
+        const fullUser: User = await this.userRepository.setUserRefreshToken(createdUser, userRefreshToken);
+        
+        const userDTOOutput: UserDTOOutput = new UserDTOOutput();
+        userDTOOutput.setUserSignUpOutput(fullUser.getUserId(), fullUser.getUserEmail(), userAccessToken);
+        return userDTOOutput;
     };
 };

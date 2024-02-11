@@ -21,7 +21,8 @@ export class AuthControllerImpl implements AuthController {
                                  .then((userDTOOutput: UserDTOOutput) => {
                                      res
                                         .status(200)
-                                        .cookie('access_token', userDTOOutput.getUserAcessToken(), { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.accessTokenExpDat })
+                                        .cookie('access_token', userDTOOutput.getUserAcessToken(), 
+                                                { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.accessTokenExpDay })
                                         .json({ userEmail: userDTOOutput.getUserEmail() });
                                  })
                                  .catch((err) => res.status(500).json(err));
@@ -36,7 +37,8 @@ export class AuthControllerImpl implements AuthController {
                               .then((userDTOOutput: UserDTOOutput) => {
                                 res
                                    .status(200)
-                                   .cookie('access_token', userDTOOutput.getUserAcessToken(), { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.accessTokenExpDat })
+                                   .cookie('access_token', userDTOOutput.getUserAcessToken(), 
+                                           { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.accessTokenExpDay })
                                    .json({ userEmail: userDTOOutput.getUserEmail() });
                               })
                               .catch((err) => res.status(500).json(err));

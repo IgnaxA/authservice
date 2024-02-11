@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 
 export class JWTImpl implements AuthJWT, CheckJWT {
     private readonly refreshTokenAliveTime: number = 60 * 60 * 24 * jwtConfig.refreshTokenExpDay;
-    private readonly accessTokenAliveTime: number = 60 * 60 * 24 * jwtConfig.accessTokenExpDat;
+    private readonly accessTokenAliveTime: number = 60 * 60 * 24 * jwtConfig.accessTokenExpDay;
 
     createRefreshToken = async (userId: number): Promise<string> => {
         return jwt.sign({ id: userId }, jwtConfig.secretWord, {

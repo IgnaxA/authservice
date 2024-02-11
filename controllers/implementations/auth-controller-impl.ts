@@ -21,8 +21,10 @@ export class AuthControllerImpl implements AuthController {
                                  .then((userDTOOutput: UserDTOOutput) => {
                                      res
                                         .status(200)
+                                        .cookie('refresh_token', userDTOOutput.getUserRefreshToken(), 
+                                                { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.refreshTokenExpDay, secure: true })
                                         .cookie('access_token', userDTOOutput.getUserAcessToken(), 
-                                                { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.accessTokenExpDay })
+                                                { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.accessTokenExpDay, secure: true })
                                         .json({ userEmail: userDTOOutput.getUserEmail() });
                                  })
                                  .catch((err) => res.status(500).json(err));
@@ -37,8 +39,10 @@ export class AuthControllerImpl implements AuthController {
                               .then((userDTOOutput: UserDTOOutput) => {
                                 res
                                    .status(200)
+                                   .cookie('refresh_token', userDTOOutput.getUserRefreshToken(), 
+                                            { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.refreshTokenExpDay, secure: true })
                                    .cookie('access_token', userDTOOutput.getUserAcessToken(), 
-                                           { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.accessTokenExpDay })
+                                           { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * JWTConfig.accessTokenExpDay, secure: true })
                                    .json({ userEmail: userDTOOutput.getUserEmail() });
                               })
                               .catch((err) => res.status(500).json(err));

@@ -1,0 +1,5 @@
+{
+    "secretWord": "RoyalFlush",
+    "refreshTokenExpDay": 30,
+    "accessTokenExpDat": 1
+}

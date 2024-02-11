@@ -9,7 +9,7 @@ export class CryptorImpl implements Cryptor {
         return bcrypt
                 .hash(password, this.saltRounds);
     };
-    comparePassword = async (password: string, hashedPassword: string): Promise<boolean> => {
+    comparePasswords = async (password: string, hashedPassword: string): Promise<boolean> => {
         return bcrypt
                 .compare(password, hashedPassword);
     };

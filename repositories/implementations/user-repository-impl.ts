@@ -36,7 +36,7 @@ export class UserRepositoryImpl implements UserRepository {
                                  VALUES ('${user.getUserEmail()}', '${user.getUserPassword()}', ${user.getUserAccessLevel()}, '') 
                                  RETURNING *`)
                           .then(async (queryResult: QueryResult<JSON>) => {
-                            return this.handlingQueryResult(queryResult);
+                            return await this.handlingQueryResult(queryResult);
                           });
     };
 
@@ -45,7 +45,7 @@ export class UserRepositoryImpl implements UserRepository {
                                  FROM users 
                                  WHERE users.user_email = '${userEmail}'`)
                          .then(async (queryResult: QueryResult<JSON>) => {
-                            return this.handlingQueryResult(queryResult);
+                            return await this.handlingQueryResult(queryResult);
                          });
     };
 
@@ -55,7 +55,7 @@ export class UserRepositoryImpl implements UserRepository {
                                  WHERE user_id = ${user.getUserId()}
                                  RETURNING *`)
                          .then(async (queryResult: QueryResult<JSON>) => {
-                            return this.handlingQueryResult(queryResult);
+                            return await this.handlingQueryResult(queryResult);
                          });
     };
 };

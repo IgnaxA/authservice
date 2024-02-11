@@ -9,6 +9,8 @@ import { AuthServiceImpl } from "./services/implementations/auth-service-impl";
 import { Cryptor } from "./secure/cryptor/cryptor";
 import { CryptorImpl } from "./secure/cryptor/implementations/cryptor-impls";
 import bodyParser from "body-parser";
+import { AuthJWT } from "./secure/json-web-token/auth-jwt";
+import { JWTImpl } from "./secure/json-web-token/implementations/jwt-impl";
 
 const PORT = 8080;
 
@@ -17,7 +19,8 @@ app.use(bodyParser.json());
 
 const userRepository: UserRepository = new UserRepositoryImpl();
 const cryptor: Cryptor = new CryptorImpl();
-const authService: AuthService = new AuthServiceImpl(userRepository, cryptor);
+const authJWT: AuthJWT = new JWTImpl();
+const authService: AuthService = new AuthServiceImpl(userRepository, cryptor, authJWT);
 const authController: AuthController = new AuthControllerImpl(authService);
 const authRouter: AuthRouter = new AuthRouter(authController);
 

@@ -1,6 +1,7 @@
-import { UserDTO } from "../dto/UserDTO";
+import { UserDTOInput } from "../dto/UserDTOInput";
+import { UserDTOOutput } from "../dto/UserDTOOutput";
 
 export interface AuthService {
-    createUser(userEmail: string, userPassword: string, userAccessLevel: number): Promise<UserDTO>;
-    getUser(userId: number): Promise<UserDTO>;
+    signIn(userDTOInput: UserDTOInput): Promise<UserDTOOutput>;
+    signUp(userDTOInput: UserDTOInput): Promise<UserDTOOutput>;
 };

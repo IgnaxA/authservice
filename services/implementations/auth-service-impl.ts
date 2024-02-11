@@ -40,7 +40,7 @@ export class AuthServiceImpl implements AuthService {
         const userAccessToken: string = await this.authJWT.createAccessToken(fullUser.getUserId());
 
         const userDTOOutput: UserDTOOutput = new UserDTOOutput();
-        userDTOOutput.setUserSignInOutput(fullUser.getUserId(), fullUser.getUserEmail(), userAccessToken);
+        userDTOOutput.setUserSignInOutput(fullUser.getUserId(), fullUser.getUserEmail(), fullUser.getUserRefreshToken(), userAccessToken);
         return userDTOOutput;
     };
 
@@ -57,7 +57,7 @@ export class AuthServiceImpl implements AuthService {
         const fullUser: User = await this.userRepository.setUserRefreshToken(createdUser, userRefreshToken);
         
         const userDTOOutput: UserDTOOutput = new UserDTOOutput();
-        userDTOOutput.setUserSignUpOutput(fullUser.getUserId(), fullUser.getUserEmail(), userAccessToken);
+        userDTOOutput.setUserSignUpOutput(fullUser.getUserId(), fullUser.getUserEmail(), fullUser.getUserRefreshToken(), userAccessToken);
         return userDTOOutput;
     };
 };

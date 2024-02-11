@@ -15,12 +15,12 @@ export class JWTImpl implements AuthJWT, CheckJWT {
         });
     };
 
-    verifyToken = async (token: string): Promise<{ succes: boolean, data: TokenDecoded | Error }> => {
+    verifyToken = async (token: string): Promise<{ success: boolean, data: TokenDecoded | Error }> => {
         try {
             const decoded = jwt.verify(token, jwtConfig.secretWord);
-            return { succes: true, data: decoded as TokenDecoded };
+            return { success: true, data: decoded as TokenDecoded };
         } catch (err: any) {
-            return { succes: false, data: err };
+            return { success: false, data: err };
         };
     };
 

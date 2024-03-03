@@ -1,5 +1,5 @@
-import { UserDTOInput } from "../dto/UserDTOInput";
-import { UserDTOOutput } from "../dto/UserDTOOutput";
+import { UserDTOInput } from "../dto/user-dto-input";
+import { UserDTOOutput } from "../dto/user-dto-output";
 
 export interface AuthService {
     signIn(userDTOInput: UserDTOInput): Promise<UserDTOOutput>;

@@ -1,5 +1,6 @@
+import { Request, Response } from "express";
 
 export interface TokenController {
-    generateAccessToken(): void;
-    verifyAccessToken(): void;
+    generateAccessToken(req: Request, res: Response): void;
+    verifyAccessToken(req: Request, res: Response): void;
 };

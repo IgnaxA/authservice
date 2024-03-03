@@ -1,5 +1,5 @@
-import { UserDTOOutput } from "../../dto/UserDTOOutput";
-import { UserDTOInput } from "../../dto/UserDTOInput";
+import { UserDTOOutput } from "../../dto/user-dto-output";
+import { UserDTOInput } from "../../dto/user-dto-input";
 import { User } from "../../entities/user";
 import { UserRepository } from "../../repositories/user-repository";
 import { Cryptor } from "../../secure/cryptor/cryptor";

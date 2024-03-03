@@ -1,5 +1,5 @@
-import { UserDTOInput } from "../../dto/UserDTOInput";
-import { UserDTOOutput } from "../../dto/UserDTOOutput";
+import { UserDTOInput } from "../../dto/user-dto-input";
+import { UserDTOOutput } from "../../dto/user-dto-output";
 import { AuthService } from "../../services/auth-service";
 import { AuthController } from "../auth-controller";
 import { Request, Response } from "express";
